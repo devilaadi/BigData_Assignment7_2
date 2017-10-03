@@ -1,0 +1,38 @@
+
+----CREATING TABLE ----
+
+CREATE TABLE Olympics (
+Athlete string ,
+Age int,
+Country string,
+Year int,
+ClosingDate string,
+Sport string,
+GoldMedals int,
+SilverMedals int,
+BronzeMedals int,
+TotalMedals int)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
+STORED AS TEXTFILE;
+
+LOAD DATA LOCAL INPATH '/home/cloudera/Desktop/Acadgild/Hive/Assignment_7_2/olympix_data.csv' INTO TABLE Olympics ;
+
+
+--1. Write a Hive program to find the number of medals won by each country in swimming.--
+
+Select Country , SUM(TotalMedals) FROM Olympics WHERE Sport="Swimming"  GROUP BY(Country) ;
+
+--2. Write a Hive program to find the number of medals that India won year wise.--
+
+Select Year , SUM(TotalMedals)  FROM Olympics WHERE Country="India" GROUP BY (Year) ;
+
+--3. Write a Hive Program to find the total number of medals each country won.--
+
+Select Country , SUM(TotalMedals) FROM Olympics GROUP BY(Country) ;
+
+--4. Write a Hive program to find the number of gold medals each country won.
+
+Select Country , SUM(GoldMedals) FROM Olympics GROUP BY(Country) ;
+
+
+
